@@ -1,0 +1,80 @@
+EXE_EXTN	=
+OBJ_EXTN	= .o
+LEXER		= lex.yyc lex.yyp lex.yyperl lex.yyphp
+
+LEX		= @LEX@ 
+CC		= @CC@ 
+
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+BINDIR		= @bindir@
+LIBDIR		= @libdir@
+MANDIR		= @mandir@
+SHAREDIR	= @datadir@
+INSTALL		= @INSTALL@
+INSTALL_PROGRAM	= @INSTALL_PROGRAM@
+INSTALL_DATA	= @INSTALL_DATA@
+INSTALL_SCRIPT	= @INSTALL_SCRIPT@
+
+CFLAGS		= -Wall -g @CFLAGS@ @DEFS@ -DDATADIR=\"$(SHAREDIR)\"
+LDFLAGS		= -Wall -g @LDFLAGS@
+LEXFLAGS	= -F -8 
+
+BIN		= rats
+OBJ		= engine$(OBJ_EXTN) \
+		  lex.yyc$(OBJ_EXTN) \
+		  lex.yyp$(OBJ_EXTN) \
+		  lex.yyperl$(OBJ_EXTN) \
+		  lex.yyphp$(OBJ_EXTN) \
+		  hash$(OBJ_EXTN) \
+		  kazhash$(OBJ_EXTN) \
+		  main$(OBJ_EXTN) \
+		  report$(OBJ_EXTN) \
+		  vuln_db$(OBJ_EXTN)\
+		  getopt$(OBJ_EXTN)
+LIBS		= @LIBS@
+SOURCES		= $(OBJ:$(OBJ_EXTN)=.c)
+
+$(BIN):	$(OBJ)
+	$(CC) $(LDFLAGS) -o $(BIN) $(OBJ) $(LIBS)
+
+%$(OBJ_EXTN):	%.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+lex:	c-lex.l python-lex.l perl-lex.l
+	$(LEX) $(LEXFLAGS) -Pyyc c-lex.l
+	$(LEX) $(LEXFLAGS) -Pyyp python-lex.l
+	$(LEX) $(LEXFLAGS) -Pyyperl perl-lex.l
+	$(LEX) $(LEXFLAGS) -Pyyphp  php-lex.l       
+
+install:	$(BIN)
+	./mkinstalldirs $(BINDIR) $(LIBDIR) $(MANDIR) $(MANDIR)/man1 $(SHAREDIR)
+	$(INSTALL_PROGRAM) $(BIN) $(BINDIR)
+	$(INSTALL_DATA) rats-python.xml $(SHAREDIR)
+	$(INSTALL_DATA) rats-c.xml $(SHAREDIR)
+	$(INSTALL_DATA) rats-perl.xml $(SHAREDIR)
+	$(INSTALL_DATA) rats-php.xml $(SHAREDIR)
+	$(INSTALL_DATA) rats-openssl.xml $(SHAREDIR)
+	$(INSTALL_DATA) rats.1	$(MANDIR)/man1
+
+clean:
+	rm -f $(OBJ) *~ $(BIN) core
+
+distclean:	clean
+	rm -f config.log config.status config.cache Makefile
+
+major:	distclean lex
+	echo -n '#define VERSION_MAJOR ' > version.tmp
+	expr `head -n1 version.h | cut -d ' ' -f 3` + 1 >> version.tmp
+	echo '#define VERSION_MINOR 0' >> version.tmp
+	mv -f version.tmp version.h
+	cvs commit -m "Incremented major version number" version.h
+
+minor:	distclean lex
+	head -n1 version.h > version.tmp
+	echo -n '#define VERSION_MINOR ' >> version.tmp
+	expr `tail -n1 version.h | cut -d ' ' -f 3` + 1 >> version.tmp
+	mv -f version.tmp version.h
+	cvs commit -m "Incremented minor version number" version.h
+
+# vim: noexpandtab:ts=8:sw=8:sts=0

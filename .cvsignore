@@ -1,0 +1,17 @@
+lex.yyc.c
+lex.yyp.c
+lex.yyperl.c
+lex.yyphp.c
+rats
+Makefile
+config.log
+config.cache
+config.status
+Debug
+Release
+rats.ncb
+rats.opt
+rats.plg
+expat.dll
+expat.lib
+expat.h

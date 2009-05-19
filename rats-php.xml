@@ -1,0 +1,373 @@
+<VulnDB lang="php">
+
+
+
+  <Vulnerability>
+    <Name>mail</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>
+        Arguments 1, 2, 4 and 5 of this function may be passed to an external 
+        program. (Usually sendmail). Under Windows, they will be passed to a
+        remote email server. If these values are derived from user input, make
+        sure they are properly formatted and contain no unexpected characters or
+        extra data.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>getallheaders</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>bzread</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>fgets</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>fgetss</Name>
+    <Input/>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>getenv</Name>
+    <Input/>
+  </Vulnerability>
+    
+  <Vulnerability>
+    <Name>file</Name>
+    <RaceUse>1</RaceUse>
+    <Input/>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>fscanf</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gzfile</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gzgetc</Name>
+    <Input/>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>gzgets</Name>
+    <Input/>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>gzread</Name>
+    <Input/>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>gzgetss</Name>
+    <Input/>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>read</Name>
+    <Input/>
+  </Vulnerability>
+
+
+
+  <Vulnerability>
+    <Name>gzopen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+
+
+
+  <Vulnerability>
+    <Name>eval</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem> 
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>highlight_file</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>show_source</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>leak</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>This function literally leaks memory. Are you sure you meant to use this?</Description>
+    </Info>
+  </Vulnerability>
+
+
+
+  <Vulnerability>
+    <Name>chroot</Name>
+    <Info>
+      <Severity>Low</Severity>
+      <Description>Reminder: Do not forget to chdir() to an appropriate directory before calling chroot()</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>fsockopen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>Medium</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>pfsockopen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>Medium</Severity>
+    </InputProblem>
+  </Vulnerability>
+  
+  <Vulnerability>
+    <Name>posix_getlogin</Name>
+    <Info>
+      <Description> The results of this call are easy to forge.</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>posix_ttyname</Name>
+    <Info>
+      <Description>
+      The results are easy for an attacker to forge, and not reliable.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>system</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>passthru</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  
+  <Vulnerability>
+    <Name>fopen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>bzopen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>popen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+
+
+  <Vulnerability>
+    <Name>posix_mkfifo</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>opendir</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>exec</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>basename</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chmod</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chown</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>dirname</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>link</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>mkdir</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>readfile</Name>
+    <RaceUse>1</RaceUse>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rename</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rmdir</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>symlink</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>unlink</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>filegroup</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>fileowner</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>fileperms</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_dir</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_executable</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_file</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_link</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_readable</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_writable</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>is_writeable</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>stat</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>lstat</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+
+
+
+
+
+
+  
+
+</VulnDB>
+
+
+
+

@@ -1,0 +1,321 @@
+<?xml version="1.0"?>
+<!DOCTYPE RATS [
+<!ENTITY taintedfileop "When using this function, it is important to be sure that the string being passed in does not contain relative path elements (../ for example), or a null, which may cause underlying C calls to behave in ways you do not expect. This is especially important if the string is in any way constructed from a user supplied value.">
+<!ENTITY dns "DNS results can easily be forged by an attacker (or arbitrarily se
+t to large values, etc), and should not be trusted.">
+<!ENTITY randdesc "Standard random number generators should not be used to
+generate randomness used for security reasons.  For security sensitive randomnes
+s a crytographic randomness generator that provides sufficient entropy should be
+ used.">
+
+]>
+
+
+<VulnDB  lang="perl">
+
+
+  <Vulnerability>
+    <Name>srand</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rand</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>getc</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>readdir</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>read</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>sysread</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>exec</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>When using exec, it is important to be sure that the string being used does not contain relative paths elements (../ for example), or a null, which may cause underlying C calls to behave strangely. </Description>
+    </Info>
+  </Vulnerability>
+  
+
+  <Vulnerability>
+    <Name>fcntl</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>The filehandle argument should not be derived from 
+                   user input. Doing so could allow arbitrary filehandles
+                   to have operations carried out on them.
+      </Description>
+    </Info>
+  </Vulnerability> 
+
+  <Vulnerability>
+    <Name>bind</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>The second argument specifiying the packed address to bind 
+                   to, should not be derived from user input. If the address
+                   is derived from user input, it is possible for a malicious
+                   user to cause the socket to be bound to an address of their
+                   choice.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>setpgrp</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>When using setpgrp, neither argument should be derived 
+                   from user input, doing so may allow the attacker to modify
+                   both the PID and the PGRP argument, possibly allowing 
+                   arbitrary processes to have their process group changed.
+      </Description>
+    </Info>
+  </Vulnerability>
+  
+  <Vulnerability>
+    <Name>setpriority</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>When using setpriority, do not pass arguments to it that
+                   are derived from user input. Doing so could allow an 
+                   attacker to set the priority of an arbitrary process on
+                   the system.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>syscall</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Care should be exercised when using the syscall function. 
+                   Arguments derived from user input are to be avoided, and
+                   are especially dangerous due to the fact they are passed 
+                   directly to the underlying OS call. There is also a 
+                   potential for buffer-overflow like problems with strings
+                   that may be written to. Extend all perl strings to sane
+                   lengths before passing them into this function.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+      
+
+  <Vulnerability>
+    <Name>connect</Name>
+      <Info>
+        <Severity>High</Severity>
+        <Description>The second argument specifiying the packed address to bind
+                     to, should not be derived from user input. If the address
+                     is derived from user input, it is possible for a malicious
+                     user to cause the socket to connect to an arbitrary remote 
+                     address, enabling hijacking of potentially sensitive 
+                     network data.
+        </Description>
+      </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>system</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>When using system, it is important to be sure that the string being used does not contain relative path elements (../ for example), or a null, which may cause underlying C calls to behave strangely. It is also imperative
+to insure the string has no characters that may be interpreted by the shell, possibly allowing arbitrary commands to be run
+      </Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>open</Name>
+    <Input/>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>The filename argument of open should be carefully checked if it is being created with any user-supplied string as a compontent of it. Strings should be checked for occurences of path backtracking/relative path components (../ as an example), or nulls, which may cause the underlying C call to interpret the filename to open differently than expected. It is also important to make sure that the final filename does not end in a "|", as this will cause the path to be executed.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+
+
+  <Vulnerability>
+    <Name>unlink</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>mkdir</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chdir</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rmdir</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chown</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chmod</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+             
+  <Vulnerability>
+    <Name>link</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>symlink</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>truncate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>chroot</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&taintedfileop;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>umask</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Using a user supplied expression as an argument to this function should be avoided. Explicitly set the umask to a value you know is safe.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>kill</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Avoid constructing the list of process ids to kill with any strings that contain user inputted data. Users may be able to manipulate the pid values in such a way as to cause arbitrary signals to be sent to processes, possibly leading to exploits or DoS attacks.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>ioctl</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Using user supplied strings as the arguments to ioctl may allow the user to manipulate the device in arbitrary ways.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>eval</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Using user supplied strings anywhere inside of an eval is extremely dangerous. Unvalidated user input fed into an eval call may allow the user to execute arbitrary perl code. Avoid ever passing user supplied strings into eval.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>glob</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Glob invokes a shell (usually /bin/csh) to obtain the list of filenames that match the glob pattern. Unvalidated user input used in a glob pattern could allow arbitrary shell code to be run, possibly executing programs as a result. Avoid using user input in glob patterns.
+      </Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>fork</Name>
+    <Info>
+      <Description>
+      Remember that sensitive data get copied on fork.  For example, a random
+      number generator's internal state will get duplicated, and the child
+      may start outputting identical number streams.
+      </Description>
+      <Severity>Low</Severity>
+   </Info>
+  </Vulnerability>
+
+  
+  <Vulnerability>
+    <Name>gethostbyname</Name>
+    <Info>
+      <Description>&dns;</Description>
+      <Severity>High</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gethostbyaddr</Name>
+    <Info>
+      <Description>&dns;</Description>
+      <Severity>High</Severity>
+    </Info>
+  </Vulnerability>
+
+
+
+</VulnDB>
