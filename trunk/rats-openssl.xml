@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!--
+OpenSSL RATS database V0.0 20/8/2002
+
+(C) A.L. Digital Ltd.
+
+Prepared by Ben Laurie <ben@algroup.co.uk>
+
+Effort sponsored by the Defense Advanced Research Projects Agency (DARPA)
+and Air Force Research Laboratory, Air Force Materiel Command, USAF, under
+agreement number F30602-01-2-0537.
+-->
+<!DOCTYPE RATS [
+<!ENTITY bufbig "Double check that your buffer is as big as you specify">
+<!ENTITY avoidbuf "Allow the function to dynamically allocate the buffer.
+If you insist on a fixed buffer, then double check that your buffer is as big
+as you specify.">
+<!ENTITY cleanrealloc "Does the memory need to be cleaned if moved? Use
+re[m]alloc_clean instead.">
+<!ENTITY cleanfree "Does the memory need to be cleaned before freeing?">
+<!ENTITY stringn "Use ERR_error_string_n() instead">
+<!ENTITY mdlen "make sure the buffer is EVP_MAX_MD_SIZE">
+<!ENTITY enclen "make sure the output buffer is either at least one block less one byte bigger
+than the input, or that you are sure inputs are always multiples of the block
+size, and the output buffer is as big as the input.">
+<!ENTITY encodelen "make sure the output buffer is four thirds the size of the input buffer
+(precisely out=((in+2)/3)*4 where the division is truncated.">
+<!ENTITY usel "Use strlcpy/strlcat instead of strncpy/strncat">
+]>
+<VulnDB lang="c">
+
+  <Vulnerability>
+    <Name>RAND_file_name</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>BIO_snprintf</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>X509_NAME_oneline</Name>
+    <Info>
+      <Description>&avoidbuf;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>OBJ_obj2txt</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>i2t_ASN1_OBJECT</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>BIO_gets</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>a2i_ASN1_INTEGER</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>OPENSSL_realloc</Name>
+    <Info>
+      <Description>&cleanrealloc;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>CRYPTO_realloc</Name>
+    <Info>
+      <Description>&cleanrealloc;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>CRYPTO_remalloc</Name>
+    <Info>
+      <Description>&cleanrealloc;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>BUF_MEM_grow</Name>
+    <Info>
+      <Description>&cleanrealloc;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>OPENSSL_free</Name>
+    <Info>
+      <Description>&cleanfree;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>CRYPTO_free</Name>
+    <Info>
+      <Description>&cleanfree;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>UI_UTIL_read_pw_string</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>UI_UTIL_read_pw</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>ERR_error_string</Name>
+    <Info>
+      <Description>&stringn;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>X509_digest</Name>
+    <Info>
+      <Description>&mdlen;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>EVP_EncryptUpdate</Name>
+    <Info>
+      <Description>&enclen;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>EVP_DecryptUpdate</Name>
+    <Info>
+      <Description>&enclen;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>EVP_CipherUpdate</Name>
+    <Info>
+      <Description>&enclen;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>EVP_EncodeBlock</Name>
+    <Info>
+      <Description>&encodelen;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>strlcat</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>strlcpy</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>program_name</Name>
+    <Info>
+      <Description>&bufbig;</Description>
+      <Severity>Low</Severity>
+    </Info>
+  </Vulnerability>
+
+</VulnDB>

@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<!DOCTYPE RATS [
+<!ENTITY randdesc "Standard random number generators should not be used to 
+generate randomness used for security reasons.  For security sensitive randomness a crytographic randomness generator that provides sufficient entropy should be used.">
+<!ENTITY bufbig "Double check that your buffer is as big as you specify">
+<!ENTITY bufloop "Check buffer boundaries if calling this function in a loop and make sure you are not in danger of writing past the allocated space.">
+<!ENTITY bufreasonable "Truncate all input strings to a reasonable length before
+passing them to this function">
+<!ENTITY tmpfile "Many calls for generating temporary file names are insecure (susceptible to race conditions).  Use a securely generated file name, for example, by pulling 64 bits of randomness from /dev/random, base 64 encoding it and using that as a file suffix.">
+<!ENTITY dns "DNS results can easily be forged by an attacker (or arbitrarily set to large values, etc), and should not be trusted."> 
+
+]>
+<VulnDB  lang="python">
+
+  <Vulnerability>
+    <Name>access</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>mkfifo</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>pathconf</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>listdir</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+   <Name>open</Name>
+   <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>lstat</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>stat</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chmod</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chown</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rename</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>mkdir</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rmdir</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>remove</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>unlink</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>link</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execv</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execve</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execl</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execlp</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execle</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execvp</Name>
+    <RaceUse>1</RaceUse>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>random</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>randint</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>randrange</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>setstate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>whseed</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>getstate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>jumpahead</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>shuffle</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>choice</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>uniform</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>betavariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>seed</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>cunifvariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+
+  <Vulnerability>
+    <Name>expovariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gamma</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gauss</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>lognormvariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>normalvariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>vonmisesvariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>paretovariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>weibullvariate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&randdesc;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>system</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>popen</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>exec</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>execfile</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>eval</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>input</Name>
+    <Input/>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>compile</Name>
+    <InputProblem>
+      <Arg>1</Arg>
+      <Severity>High</Severity>
+    </InputProblem>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>tmpfile</Name>
+    <Info>
+      <Description>&tmpfile;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+  <Vulnerability>
+    <Name>tmpnam</Name>
+    <Info>
+      <Description>&tmpfile;</Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>getlogin</Name>
+    <Info>
+      <Description> The results of this call are easy to forge.  </Description>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>ttyname</Name>
+    <Info>
+      <Description>
+      The results are easy for an attacker to forge, and not reliable.
+      </Description>
+    </Info>  
+  </Vulnerability>
+
+<!-- Functions that are known input sources, but not otherwise problems -->
+
+  <Vulnerability>
+    <Name>raw_input</Name>
+    <Input/>
+  </Vulnerability>
+  <Vulnerability>
+    <Name>read</Name>
+    <Input/>
+  </Vulnerability>
+  <Vulnerability>
+    <Name>recvfrom</Name>
+    <Input/>
+  </Vulnerability>
+  <Vulnerability>
+    <Name>recv</Name>
+    <Input/>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>signal</Name>
+    <Info>
+      <Description>
+      When setting signal handlers, do not use the same function to handle multiple signals. There exists the possibility a race condition will result if 2 or more different signals are sent to the process at nearly the same time. Also, when writing signal handlers, it is best to do as little as possible in them. The best strategy is to use the signal handler to set a flag, that another part of the program tests and performs the appropriate action(s) when it is set.
+      </Description>
+      <URL>http://razor.bindview.com/publish/papers/signals.txt</URL>
+      <Severity>Medium</Severity>
+    </Info>
+  </Vulnerability>
+
+<!-- Added by Viega: obvious from the book.  Also show up on
+     Shostack's page. -->
+  <Vulnerability>
+    <Name>gethostbyname</Name>
+    <Info>
+      <Description>&dns;</Description>
+      <Severity>High</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gethostbyname_ex</Name>
+    <Info>
+      <Description>&dns;</Description>
+      <Severity>High</Severity>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>gethostbyaddr</Name>
+    <Info>
+      <Description>&dns;</Description>
+      <Severity>High</Severity>
+    </Info>
+  </Vulnerability>
+
+<!-- Added by Viega.  From Peter Guttman's thesis. -->
+  <Vulnerability>
+    <Name>fork</Name>
+    <Info>
+      <Description>
+      Remember that sensitive data get copied on fork.  For example, a random
+      number generator's internal state will get duplicated, and the child
+      may start outputting identical number streams.
+      </Description>
+      <Severity>Low</Severity>
+   </Info> 
+  </Vulnerability>
+</VulnDB>

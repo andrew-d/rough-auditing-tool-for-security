@@ -1,0 +1,26 @@
+The installation procedure described in README does not apply to any Windows
+platform.  To use this package on any Windows machine, it is recommended that
+you install the binary package that is provided at:
+
+http://www.securesw.com/rats/
+
+To install the binary package, unzip it to a directory of your choosing, and
+add that directory to your PATH.  You will also need to have Expat installed
+on your system and accessible from the PATH.  You can obtain source and Windows
+binaries for Expat from:
+
+http://expat.sourceforge.net/
+
+Due to the way that the Windows shell handles wildcards differently
+than a Unix based system, there is an additional flag (-R) that can be
+used instead to recurse directories.
+
+A big thanks to Mike Ellison for providing the legwork on the initial port of
+rats-1.3 to the Win32 platform.   
+
+-------------------------------------------------------------------------------
+
+If you do want to build RATS on a Windows platform, you will need to have Expat
+installed, of course.  A Microsoft Visual C++ project is included in the source
+distribution.  Place EXPAT.LIB and EXPAT.H into the RATS source directory, and
+build using the MSVC IDE.

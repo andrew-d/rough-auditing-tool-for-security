@@ -1,0 +1,122 @@
+                    
+
+		RATS - Rough Auditing Tool for Security
+
+This is RATS, a rough auditing tool for security, developed by Secure
+Software Inc.  It is a tool for scanning C, C++, Perl, PHP and
+Python source code and flagging common security related programming
+errors such as buffer overflows and TOCTOU (Time Of Check, Time Of
+Use) race conditions.  As its name implies, the tool performs only a
+rough analysis of source code.  It will not find every error and will
+also find things that are not errors.  Manual inspection of your code
+is still necessary, but greatly aided with this tool.
+
+RATS is free software.  You may copy, distribute, and modify it under
+the terms of the GNU Public License as contained in the file named
+COPYING that has been included with this distribution.
+
+Requirements
+------------
+RATS requires expat to be installed in order to build and run.  Expat
+is often installed in /usr/local/lib and /usr/local/include.  On some
+systems, you will need to specify --with-expat-lib and
+--with-expat-include options to configure so that it can find your
+installation of the library and header.
+
+Expat can be found at: http://expat.sourceforge.net/
+
+Installation
+------------
+Building and installation of RATS is simple.  To build, you simply
+need to run the configuration shell script in the distribution's
+top-level directory:
+
+        ./configure
+
+The configuration script is a standard autoconf generation
+configuration script and accepts many options.  Run configure with the
+--help option to see what options are available.
+
+Once the configuration script has completed successfully, simply run
+make in the distribution's top-level directory to build the program:
+
+        make
+
+By default, RATS will be installed to /usr/local/bin and its
+vulnerability database will be installed to /usr/local/lib.  You may
+change the installation directories of both with the --prefix option
+to configure.  You may optionally use the --bindir and --datadir to
+specify more precise locations for the files that are installed.
+
+To install after building, simply run make with the install target:
+
+        make install
+
+This will copy the built binary, rats, to the binary installation
+directory and the vulnerability database, rats.xml, to the data
+installation directory.
+
+Running RATS
+------------
+Once you have built and installed RATS, it's time to start auditing
+your software!  RATS accepts a few command line options that will be
+described here and accepts a list of files to audit on the command
+line.  If no files to audit are specified, stdin will be used.
+
+usage: rats [options] [file]...
+
+Options explained:
+    -d <filename>, --db <filename>, --database <filename>
+                    Specifies a vulnerability database to be loaded.  You may
+                    have multiple -d options and each database specified will
+                    be loaded.
+    -h, --help      Displays a brief usage summary
+    -i, --input     Causes a list of function calls that were used which
+                    accept external input to be produced at the end of the
+                    vulnerability report.
+    -l <lang>, --language <lang>
+         	    Force the specified language to be used regardless of 
+                    filename extension. Currently valid language names are 
+                    "c", "perl", "php" and "python".
+    -r, --references
+	            Causes references to vulnerable function calls that are not
+                    being used as calls themselves to be reported.
+    -w <level>, --warning<level>
+		    Sets the warning level.  Valid levels are 1, 2 or 3.   
+                    Warning level 1 includes only default and high severity
+                    Level 2 includes medium severity. Level 2 is the default 
+                    warning level 3 includes low severity vulnerabilities.
+    -x              Causes the default vulnerability databases (which are in 
+                    the installation data directory, /usr/local/lib by default)
+                    to not be loaded.
+    -R, --no-recursion
+		    Disable recursion into subdirectories.
+    --xml	    Cause output to be in XML
+    --html	    Cause output to be in HTML
+    --follow-symlinks
+		    Evaluate and follow symlinks.
+
+When started, RATS will scan each file specified on the command line and
+produce a report when scanning is complete.  What vulnerabilities are reported
+in the final report depend on the data contained in the vulnerability database
+or databases that are used and the warning level in use.
+
+For each vulnerability, the list of files and line numbers where it occured is
+given, followed by a brief description of the vulnerability and suggested
+action.
+
+Contact
+-------
+RATS is authored, maintained and distributed by Secure Software, Inc.  All
+bug reports, patches, database contributions, comments, etc. should be sent to
+rats@securesoftware.com.  Our website is http://www.securesoftware.com/
+
+Acknowledgments
+---------------
+Thanks to Mike Ellison for providing the legwork on the initial port
+of rats-1.3 to the Win32 platform.
+
+Special thanks to Ben Laurie for many significant contributions,
+including the OpenSSL-specific portions of the database.
+
+Thanks to Adam Lazur for originally authoring the man page
