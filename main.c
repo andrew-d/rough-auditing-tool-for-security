@@ -54,7 +54,8 @@ char *default_files[] =
     XML_DB_BASE "rats-python.xml",
     XML_DB_BASE "rats-perl.xml",
     XML_DB_BASE "rats-php.xml",
-    XML_DB_BASE "rats-openssl.xml"
+    XML_DB_BASE "rats-openssl.xml",
+	XML_DB_BASE "rats-ruby.xml"
 };
 
 #ifdef _MSC_VER
@@ -118,6 +119,8 @@ void force_language(char *lang) {
     forcelang = LANG_PERL;
   else if (!strcasecmp(lang, "php"))
     forcelang = LANG_PHP;
+  else if (!strcasecmp(lang, "ruby"))
+    forcelang = LANG_RUBY;
   else {
     fprintf(stderr, "Language %s unknown, using filename extensions instead\n", lang);
   } 

@@ -51,6 +51,7 @@ enum _type_t
     PythonBacktick,
     PhpBacktick,
     PerlBacktick,
+	RubyBacktick,
     None
 };
 
@@ -102,6 +103,7 @@ extern void         log_toctou(toctou_t **, int, int, int);
 extern void	    log_pythonbacktick(int, int,Severity_t);
 extern void         log_perlbacktick(int, int,Severity_t);
 extern void         log_phpbacktick(int, int,Severity_t);
+extern void         log_rubybacktick(int, int,Severity_t);
 extern void         log_vulnerability(type_t, Severity_t);
 extern void         record_input(void);
 extern void         generate_report(void);

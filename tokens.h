@@ -39,6 +39,9 @@
 #define TOKEN_PHP_START   (TOKEN_PERL_END + 1)
 #define TOKEN_PHP_END     (TOKEN_PHP_START + 127)
 
+#define TOKEN_RUBY_START    (TOKEN_PHP_END + 1)
+#define TOKEN_RUBY_END      (TOKEN_RUBY_START + 127)
+
 /* Tokens that are common to multiple languages */
 
 #define TOKEN_HEX_CONST 	(CONST_START +  0)
@@ -83,7 +86,7 @@
 #include "python-tokens.h"
 #include "perl-tokens.h"
 #include "php-tokens.h"
-
+#include "ruby-tokens.h"
 /* Common externs */
 /*C language */
 extern int	clex_column;
@@ -124,6 +127,13 @@ extern int      yyphpleng;
 extern char *   yyphpcomment;
 extern int yyphplex(void);
 
-
+/* ruby language */
+extern int 	rubylex_column;
+extern int      rubylex_lineno;
+extern FILE *   yyrubyin;
+extern char *   yyrubytext;
+extern int      yyrubyleng;
+extern char *   yyrubycomment;
+extern int yyrubylex(void);;
 
 #endif

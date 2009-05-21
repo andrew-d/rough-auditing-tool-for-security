@@ -350,6 +350,22 @@ void log_phpbacktick(int lineno, int column, Severity_t severity)
     insert_vulnerability(log);
 }
 
+void log_rubybacktick(int lineno, int column, Severity_t severity)
+{
+    vulnerability_t *   log;
+
+    log = (vulnerability_t *)malloc(sizeof(vulnerability_t));
+    log->filename = current_file;
+    log->column   = column;
+    log->lineno   = lineno;
+    log->data     = (Vuln_t *)NULL;
+    log->type     = RubyBacktick;
+    log->severity = severity;
+    log->uses     = (toctou_use_t *)NULL;
+
+    insert_vulnerability(log);
+}
+
 void log_pythonbacktick(int lineno, int column, Severity_t severity)
 {
     vulnerability_t *   log;
@@ -413,18 +429,19 @@ void cleanup_string(char *str)
     memmove(str, c, len + 1);
 
     /* squash occurences of multiple whitespace characters to a single one */
-    for (c = str + 1;  *c;  c++)
-    {
-        if (isspace(*c) && isspace(*(c - 1)))
-        {
-            char *  start;
+	/* msg -- this code seems to corrupt memory on occasion */
+    //for (c = str + 1;  *c;  c++)
+    //{
+    //    if (isspace(*c) && isspace(*(c - 1)))
+    //    {
+    //        char *  start;
 
-            for (start = c++;  isspace(*c);  c++);
-            memmove(start, c, (len + 1) - (c - str));
-            len -= (c - start);
-            *(start - 1) = ' ';
-        }
-    }
+    //        for (start = c++;  isspace(*c);  c++);
+    //        memmove(start, c, (len + 1) - (c - str));
+    //        len -= (c - start);
+    //        *(start - 1) = ' ';
+    //    }
+    //}
 }
 
 static char *severities[] = { "Default", "Low", "Medium", "High" };
@@ -559,8 +576,7 @@ static void build_xml_vulnerability(vulnerability_t *ptr) {
       break;
 
     case PythonBacktick:
-      printf("  <type>%s</type>\n",
-	     ptr->data->Name);
+      printf("  <type>Backtick</type>\n");
       printf("  <message>\n");
       printf("    Do not use a variable that has been derived from untrusted sources\n");
       printf("    within a backtick.  Doing so could allow an attacker to execute\n");
@@ -570,8 +586,8 @@ static void build_xml_vulnerability(vulnerability_t *ptr) {
 
     case PhpBacktick:
     case PerlBacktick:
-      printf("  <type>%s</type>\n",
-	     ptr->data->Name);
+	case RubyBacktick:
+      printf("  <type>Backtick</type>\n");
       printf("  <message>\n");
       printf("    The backtick will act just like an call to exec(), so care should be\n");
       printf("    exercised that the string being backtick evaluated does not come from an\n");
@@ -628,7 +644,7 @@ void report_vulnerability(vulnerability_t *ptr)
         case Info:
             if (ptr->data->Info->Description != (char *)NULL)
             {
-                cleanup_string(ptr->data->Info->Description);
+                cleanup_string(ptr->data->Info->Description);// comment out if causing problems
                 printf("%s\n", ptr->data->Info->Description);
             }
             if (ptr->data->Info->URL != (char *)NULL)
@@ -688,6 +704,7 @@ void report_vulnerability(vulnerability_t *ptr)
 
         case PhpBacktick:
         case PerlBacktick:
+		case RubyBacktick:
             printf("The backtick will act just like an call to exec(), so care should be exercised that the\n");
             printf(" string being backtick evaluated does not come from an untrusted source\n\n");
             break;
@@ -1010,8 +1027,7 @@ static void build_html_vulnerability(vulnerability_t *ptr) {
       break;
 
     case PythonBacktick:
-      printf("  Issue: %s<br/>\n",
-	     ptr->data->Name);
+      printf("  Issue: backtick<br/>\n");
       printf("    Do not use a variable that has been derived from untrusted sources\n");
       printf("    within a backtick.  Doing so could allow an attacker to execute\n");
       printf("    arbitrary python code.\n");
@@ -1020,8 +1036,8 @@ static void build_html_vulnerability(vulnerability_t *ptr) {
 
     case PhpBacktick:
     case PerlBacktick:
-      printf("  Issue: %s<br/>\n",
-	     ptr->data->Name);
+	case RubyBacktick:
+      printf("  Issue: backtick<br/>\n");
       printf("    The backtick will act just like an call to exec(), so care should be\n");
       printf("    exercised that the string being backtick evaluated does not come from an\n");
       printf("    untrusted source.\n");
@@ -1233,6 +1249,9 @@ determine_ignorance(vulnerability_t *ptr)
         case PerlBacktick:
             lookup = "$perl_backtick$";
             break;
+		case RubyBacktick:
+			lookup = "$ruby_backtick$";
+			break;
 
         case None:
         default:
@@ -1292,16 +1311,11 @@ void generate_report()
                     break;
                
                 case PythonBacktick: 
-                    name = "backtick";
-                    break;
-
                 case PhpBacktick:
-                    name = "backtick";
-                    break;
-
                 case PerlBacktick:
-                    name = "backtick";
-                    break;
+				case RubyBacktick:
+					name = "backtick";
+					break;
 
                 case None:
                 default:

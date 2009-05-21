@@ -46,6 +46,7 @@
 #define LANG_C		 	2	
 #define LANG_PERL		3
 #define LANG_PHP		4
+#define LANG_RUBY		5
 
 typedef struct _lexer_t lexer_t;
 

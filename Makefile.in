@@ -1,6 +1,6 @@
 EXE_EXTN	=
 OBJ_EXTN	= .o
-LEXER		= lex.yyc lex.yyp lex.yyperl lex.yyphp
+LEXER		= lex.yyc lex.yyp lex.yyperl lex.yyphp lex.yyruby
 
 LEX		= @LEX@ 
 CC		= @CC@ 
@@ -26,6 +26,7 @@ OBJ		= engine$(OBJ_EXTN) \
 		  lex.yyp$(OBJ_EXTN) \
 		  lex.yyperl$(OBJ_EXTN) \
 		  lex.yyphp$(OBJ_EXTN) \
+		  lex.yyruby$(OBJ_EXTN) \
 		  hash$(OBJ_EXTN) \
 		  kazhash$(OBJ_EXTN) \
 		  main$(OBJ_EXTN) \
@@ -41,11 +42,12 @@ $(BIN):	$(OBJ)
 %$(OBJ_EXTN):	%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-lex:	c-lex.l python-lex.l perl-lex.l
+lex:	c-lex.l python-lex.l perl-lex.l ruby-lex.l
 	$(LEX) $(LEXFLAGS) -Pyyc c-lex.l
 	$(LEX) $(LEXFLAGS) -Pyyp python-lex.l
 	$(LEX) $(LEXFLAGS) -Pyyperl perl-lex.l
 	$(LEX) $(LEXFLAGS) -Pyyphp  php-lex.l       
+	$(LEX) $(LEXFLAGS) -Pyyruby ruby-lex.l     
 
 install:	$(BIN)
 	./mkinstalldirs $(BINDIR) $(LIBDIR) $(MANDIR) $(MANDIR)/man1 $(SHAREDIR)
@@ -54,6 +56,7 @@ install:	$(BIN)
 	$(INSTALL_DATA) rats-c.xml $(SHAREDIR)
 	$(INSTALL_DATA) rats-perl.xml $(SHAREDIR)
 	$(INSTALL_DATA) rats-php.xml $(SHAREDIR)
+	$(INSTALL_DATA) rats-ruby.xml $(SHAREDIR)
 	$(INSTALL_DATA) rats-openssl.xml $(SHAREDIR)
 	$(INSTALL_DATA) rats.1	$(MANDIR)/man1
 
