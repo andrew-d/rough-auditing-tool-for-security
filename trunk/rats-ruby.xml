@@ -1,0 +1,344 @@
+<!DOCTYPE RATS [
+  <!ENTITY rubysafelevel "Ruby safe level 2 disables this function as it could be potentially dangerous.  Verify this function is being used in a safe manner.">
+
+]>
+
+<VulnDB lang="ruby">
+
+  
+  <Vulnerability>
+    <Name>umask</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>flock</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>ioctl</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>stat</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>fork</Name>
+    <Info>
+      <Severity>Low</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>syscall</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>trap</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>setpgid</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>edgid</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>setsid</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>setpriority</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>autoload</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chmod</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chown</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>lstat</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>truncate</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>&rubysafelevel;</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>untaint</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Verify variable is properly validated from tainted input.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>send_files</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Unchecked user input could allow director traversal attacks.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>system</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Make sure user data is not pass to system.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>exec</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Make sure user data is not passed to exec.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>open</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>This method allows I/O access outside of the application.  All I/O should be validated.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>params</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Use of params, verify all user values are checked before using.  Never pass params directly to a new object i.e. Object.new(params[:user])</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chmod_R</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description></Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>chown_R</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description></Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>ln_s</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description></Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>mkdir_p</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description></Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>mkpath</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description></Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>touch</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description></Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>popen</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Unchecked user input could all exectuion of system commands.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>popen3</Name>
+    <Info>
+      <Severity>High</Severity>
+      <Description>Unchecked user input could all exectuion of system commands.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>load</Name>
+    <Info>
+      <Severity>Low</Severity>
+      <Description>Unchecked user input could all loading of rouge scripts.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rand</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Make sure this function is not being used for any security related tasks.</Description>
+    </Info>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>srand</Name>
+    <Info>
+      <Severity>Medium</Severity>
+      <Description>Make sure this function is not being used for any security related tasks.</Description>
+    </Info>
+  </Vulnerability>
+  <!--TOCTTOU Section -->
+
+  <Vulnerability>
+    <Name>exist?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>exists?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rm_r</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>safe_unlink</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rm_rf</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>rmtree</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>remove_entry_secure</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>zero?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>identical?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+  
+  <Vulnerability>
+    <Name>executable?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+  
+  <Vulnerability>
+    <Name>directory?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>file?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+  <Vulnerability>
+    <Name>empty?</Name>
+    <RaceCheck>1</RaceCheck>
+  </Vulnerability>
+
+</VulnDB>
+
+
+
+
+

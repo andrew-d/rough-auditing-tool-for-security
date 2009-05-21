@@ -264,6 +264,9 @@ analyze_backticks(void)
         case LANG_PERL:
             log_perlbacktick(myline, column,Medium);
             break;
+	    case LANG_RUBY:
+            log_rubybacktick(myline, column,Medium);
+            break;
     }
 }
 
@@ -664,6 +667,7 @@ void analyze_identifier(void)
     char *          identifier;
     Vuln_t *        data;
     argument_t *    arg;
+	int			process = 0;
 
     to_analyze=token=0;
 
@@ -687,16 +691,27 @@ void analyze_identifier(void)
 
     /* looking only for function calls here */
     if (!to_analyze &&
-	(token = get_token()) != '(')
+		(token = get_token()) != '(')
     {
-        if (flags & INCLUDE_ALL_REFERENCES)
+		if (ratslexer.lang == LANG_RUBY)
+		{
+			if (current_frame != NULL)
+			{
+				process = 1;
+				goto go;
+			}
+		}
+cleanup:
+		if (flags & INCLUDE_ALL_REFERENCES)
             log_vulnerability(Reference, Medium);
         pop_identifier();
         unget_token(token);
+
         return;
     }
 
     scan_arguments();
+go:
     data = current_frame->data;
     analyzed = 0;
 
@@ -779,7 +794,14 @@ void analyze_identifier(void)
     if (!analyzed)
         log_vulnerability(None, Default);
 
-    pop_identifier();
+	if (process)
+	{
+		pop_identifier();
+	}
+	else
+	{
+		goto cleanup;
+	}
 }
 
 static
@@ -895,6 +917,19 @@ void setup_php(FILE *fd)
     ratslexer.lang = LANG_PHP;
 }
 
+void setup_ruby(FILE *fd)
+{
+    yyrubyin = fd;
+    ratslexer.yytext = &yyrubytext;
+    ratslexer.yyin = fd;
+    ratslexer.yylex = yyrubylex;
+    ratslexer.yycomment = &yyrubycomment;
+    ratslexer.lex_lineno = &rubylex_lineno;
+    ratslexer.langhash = (Hash)HashGet(database, "ruby");
+    ratslexer.lex_column = &rubylex_column;
+    ratslexer.lang = LANG_RUBY;
+}
+
 /* Changed to char type to return 1 on successful language detemrination, 0 otherwise 
  * -- Robert */
 char determine_language(char *filename, FILE *fd, int forcelang)
@@ -911,8 +946,10 @@ char determine_language(char *filename, FILE *fd, int forcelang)
             setup_c(fd);
         else if (forcelang == LANG_PERL)
             setup_perl(fd);
-	else if ( forcelang == LANG_PHP)
-	  setup_php(fd);
+		else if ( forcelang == LANG_PHP)
+		  setup_php(fd);
+		else if ( forcelang == LANG_RUBY)
+		  setup_ruby(fd);
         return 1;
     }
     if (!dot)
@@ -930,6 +967,8 @@ char determine_language(char *filename, FILE *fd, int forcelang)
         setup_perl(fd);
     else if (!strcasecmp(dot, ".php"))
         setup_php(fd);
+	else if (!strcasecmp(dot, ".rb"))
+		setup_ruby(fd);
     else if (!strcasecmp(dot, ".c")||
 	     !strcasecmp(dot, ".c++")||
 	     !strcasecmp(dot, ".cp")||
@@ -1134,6 +1173,8 @@ void analyze_comment(void)
 
     if (yyclength < 5)
         return;
+	if (*ratslexer.yycomment == NULL)
+		return;
 
     for (c = *ratslexer.yycomment;  *c && isspace(*c);  c++);
     if (!*c)
