@@ -39,26 +39,27 @@ static void accumulate_comment(char *data, int length);
 static void count(void);
 
 #define YY_INPUT(buf, result, max_size)                                     \
-    if (((result = fread(buf, 1, max_size, yycin)) == 0) && ferror(yycin)) {    \
+    if (((result = fread(buf, 1, max_size, yyin)) == 0) && ferror(yyin)) { \
         YY_FATAL_ERROR("input in flex scanner failed");                     \
     } else {                                                                  \
-        char *c, *end = (buf) + result - 1;                                 \
-        for (c = (buf);  c < end;  c++) {                                   \
-            if (*c == '\r') *c = ' ';                                       \
-            if (*c == '\\' && *(c + 1) == '\n') {                           \
-                memmove(c + 1, c + 2, end - c);                             \
-                result--;                                                   \
-                end--;                                                      \
-                *c = '\r';                                                  \
-            }                                                               \
-        }                                                                   \
-        if (*end == '\r') *end = ' ';                                       \
-        if (*end == '\\') {                                                 \
-            result--;                                                       \
-            fseek(yycin, -1, SEEK_CUR);                                      \
-        }                                                                   \
+        if (result) {                                                           \
+            char *c, *end = (buf) + result - 1;                                 \
+            for (c = (buf);  c < end;  c++) {                                   \
+                if (*c == '\r') *c = ' ';                                       \
+                if (*c == '\\' && *(c + 1) == '\n') {                           \
+                    memmove(c + 1, c + 2, end - c);                             \
+                    result--;                                                   \
+                    end--;                                                      \
+                    *c = '\r';                                                  \
+                }                                                               \
+            }                                                                   \
+            if (*end == '\r') *end = ' ';                                       \
+            if (*end == '\\') {                                                 \
+                result--;                                                       \
+                fseek(yyin, -1, SEEK_CUR);                                      \
+            }                                                                   \
+        }                                                                       \
     }
-
 %}
 
 %%
