@@ -29,8 +29,7 @@ static void scan_yytext(void);
 #define YY_INPUT(buf, result, max_size)                                     \
     if (((result = fread(buf, 1, max_size, yyin)) == 0) && ferror(yyin)) { \
         YY_FATAL_ERROR("input in flex scanner failed");                     \
-    } else {                                                                  \
-        if (result) {                                                           \ 
+    } else if (result) {                                                                  \
             char *c, *end = (buf) + result - 1;                                 \
             for (c = (buf);  c < end;  c++) {                                   \
                 if (*c == '\r') *c = ' ';                                       \
@@ -46,9 +45,9 @@ static void scan_yytext(void);
                 result--;                                                       \
                 fseek(yyin, -1, SEEK_CUR);                                      \
             }                                                                   \
-        }                                                                       \
     }
 %}
+
 
 %%
 

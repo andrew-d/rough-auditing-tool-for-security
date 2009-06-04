@@ -3,8 +3,8 @@
 		RATS - Rough Auditing Tool for Security
 
 This is RATS, a rough auditing tool for security, developed by Secure
-Software Inc.  It is a tool for scanning C, C++, Perl, PHP and
-Python source code and flagging common security related programming
+Software Inc.  It is a tool for scanning C, C++, Perl, PHP, Python 
+and Ruby source code and flagging common security related programming
 errors such as buffer overflows and TOCTOU (Time Of Check, Time Of
 Use) race conditions.  As its name implies, the tool performs only a
 rough analysis of source code.  It will not find every error and will
@@ -77,7 +77,7 @@ Options explained:
     -l <lang>, --language <lang>
          	    Force the specified language to be used regardless of 
                     filename extension. Currently valid language names are 
-                    "c", "perl", "php" and "python".
+                    "c", "perl", "php", "python" and "ruby".
     -r, --references
 	            Causes references to vulnerable function calls that are not
                     being used as calls themselves to be reported.
