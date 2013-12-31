@@ -281,6 +281,7 @@ int main(int argc, char **argv)
       {"columns", 0,0,0},
       {"context", 0,0,0},
       {"all-static", 0,0,0},
+      {NULL,0,0,0}
     };
     progname = argv[0];
     flags|=RECURSIVE_FILE_SCAN;

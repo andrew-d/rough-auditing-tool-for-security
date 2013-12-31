@@ -121,11 +121,20 @@ xml_escape(char *xstr)
   free(xstr);
   return result;
 }
-       
-   
 
-  
-  
+
+/* Exclusively for debugging vulnerabilities.
+ * - robbat2@gentoo.org 21/05/2006 */
+static void debug_vuln_dump(vulnerability_t *ptr) {
+       fprintf(stderr,"vuln_dump: this=%x f=%s l=%d c=%d d=%x t=%d s=%d u=%x p=(%x,%x)\n",                             
+                       (unsigned int) ptr,
+                       ptr->filename,ptr->lineno,ptr->column,
+                       (unsigned int) ptr->data,ptr->type,ptr->severity,
+                       (unsigned int) ptr->uses, (unsigned int) ptr->next, (unsigned int) ptr->prev);
+}
+
+
+
 static void
 replace_cfname(char *filename)
 {
@@ -317,6 +326,27 @@ void log_vulnerability(type_t type, Severity_t severity)
     insert_vulnerability(log);
 }
 
+/* These are special static vulnerabilities because we don't
+ * want NULL data elements in the vulnerability_t->data
+ * field, because the HTML and XML output formats use that
+ * pointer without checking it for being null first.
+ * - robbat2@gentoo.org 21/05/2006 */
+static struct Vuln_t vuln_PerlBacktick = {
+       .Name = "Perl Backtick"
+};
+static struct Vuln_t vuln_PhpBacktick = {
+       .Name = "PHP Backtick"
+};
+static struct Vuln_t vuln_PythonBacktick = {
+       .Name = "Python Backtick"
+};
+static struct Vuln_t vuln_StaticLocalBuffer = {
+       .Name = "Static Local Buffer"
+};
+static struct Vuln_t vuln_StaticGlobalBuffer = {
+       .Name = "Static Global Buffer"
+};
+
 void log_perlbacktick(int lineno, int column, Severity_t severity)
 {
     vulnerability_t *   log;
@@ -325,7 +355,7 @@ void log_perlbacktick(int lineno, int column, Severity_t severity)
     log->filename = current_file;
     log->column   = column;
     log->lineno   = lineno;
-    log->data     = (Vuln_t *)NULL;
+    log->data     = &vuln_PerlBacktick;
     log->type     = PerlBacktick;
     log->severity = severity;
     log->uses     = (toctou_use_t *)NULL;
@@ -342,7 +372,7 @@ void log_phpbacktick(int lineno, int column, Severity_t severity)
     log->filename = current_file;
     log->column   = column;
     log->lineno   = lineno;
-    log->data     = (Vuln_t *)NULL;
+    log->data     = &vuln_PhpBacktick;
     log->type     = PhpBacktick;
     log->severity = severity;
     log->uses     = (toctou_use_t *)NULL;
@@ -374,7 +404,7 @@ void log_pythonbacktick(int lineno, int column, Severity_t severity)
     log->filename = current_file;
     log->column   = column;
     log->lineno   = lineno;
-    log->data     = (Vuln_t *)NULL;
+    log->data     = &vuln_PythonBacktick;
     log->type     = PythonBacktick;
     log->severity = severity;
     log->uses     = (toctou_use_t *)NULL;
@@ -390,7 +420,16 @@ void log_staticbuffer(type_t type, int lineno, int column, Severity_t severity)
     log->filename = current_file;
     log->column   = column;
     log->lineno   = lineno;
-    log->data     = (Vuln_t *)NULL;
+    switch(type) {
+            case StaticLocalBuffer: 
+                    log->data     = &vuln_StaticLocalBuffer; 
+                    break;
+            case StaticGlobalBuffer: 
+                    log->data     = &vuln_StaticGlobalBuffer; 
+                    break;
+            default:
+                    log->data     = (Vuln_t *)NULL;
+    }
     log->type     = type;
     log->severity = severity;
     log->uses     = (toctou_use_t *)NULL;
@@ -448,7 +487,11 @@ static char *severities[] = { "Default", "Low", "Medium", "High" };
 
 static void build_xml_vulnerability(vulnerability_t *ptr) {
     int i;
-    
+
+    /* Debugging - robbat2@gentoo.org 21/05/2006 */
+    if(ptr->data == NULL) 
+            debug_vuln_dump(ptr);
+
     printf("<vulnerability>\n");
 
     /* Output the severity */
@@ -609,7 +652,8 @@ static
 void report_vulnerability(vulnerability_t *ptr)
 {
     int i;
-
+    if(ptr->data == NULL)
+            debug_vuln_dump(ptr);
     switch (ptr->type)
     {
         case BOProblem:
@@ -908,7 +952,9 @@ void generate_xml() {
 static void build_html_vulnerability(vulnerability_t *ptr) {
     int i;
     
-
+    /* Debugging - robbat2@gentoo.org 21/05/2006 */
+    if(ptr->data == NULL) 
+            debug_vuln_dump(ptr);
     
     /* Output the severity */
     printf("  <b>Severity: %s</b><br/>\n",
