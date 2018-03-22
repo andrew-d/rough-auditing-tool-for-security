@@ -1043,7 +1043,7 @@ void process_directory(char *filename, int forcelang) {
   }
 #else
   if((dir=opendir(filename))==NULL) {
-    fprintf(stderr,"There was a problem opening the directory.\n");
+    fprintf(stderr,"There was a problem opening the directory: %s.\n", strerror(errno));
     return;
   }
   while((dirdata=readdir(dir))!=NULL) {
@@ -1057,6 +1057,9 @@ void process_directory(char *filename, int forcelang) {
 	    filename,
 	    dirdata->d_name);
     process_file(buf,forcelang);
+  }
+  if(closedir(dir)!=0) {
+    fprintf(stderr, "There was a problem closing the directory: %s.\n", strerror(errno));
   }
 #endif
 }
