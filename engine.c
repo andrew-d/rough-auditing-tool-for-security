@@ -38,6 +38,7 @@
 #else
 #include <sys/types.h>
 #include <dirent.h>
+#include <unistd.h>
 #endif
 
 #include <ctype.h>
@@ -49,7 +50,6 @@
 #include "report.h"
 
 
-#include <unistd.h>
 #include <errno.h>
 
 lexer_t         ratslexer;
